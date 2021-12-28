@@ -1,0 +1,84 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <h3 class="text-light">รายชื่อคนในแผนก</h3>
+        <button class="btn btn-outline-light " data-bs-toggle="modal" data-bs-target="#staticBackdrop" (click)="clickAdd()">
+            <b>+ </b>
+            เพิ่มข้อมูลใหม่
+        </button>
+    </div>
+</nav>
+
+<table class="table text-center mt-3">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>ชื่อ</th>
+            <th>นามสกุล</th>
+            <th>Email</th>
+            <th>เบอร์</th>
+            <th>รูป</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let data of employeeData">
+            <td>{{data.id}}</td>
+            <td>{{data.firstName}}</td>
+            <td>{{data.lastName}}</td>
+            <td>{{data.email}}</td>
+            <td>{{data.phoneNumber}}</td>
+            <td><img src="{{data.formFile}}" width="150" height="150"></td>
+            <td>
+              <button class="btn btn-danger" (click)="deleteEmployee(data.id)">Delete</button>
+              <button class="btn btn-info text-light" data-bs-toggle="modal" data-bs-target="#staticBackdrop" (click)="clickEdit(data)">Edit</button>
+            </td>
+        </tr>
+    </tbody>
+
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">ข้อมูลส่วนตัว</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="formEmployee">
+            ชื่อ
+            <input type="text" class="form-control" formControlName="firstName">
+            นามสกุล
+            <input type="text" class="form-control" formControlName="lastName">
+            Email
+            <input type="text" class="form-control" formControlName="email">
+            เบอร์
+            <input type="text" class="form-control" formControlName="phoneNumber">
+            รูป
+            <input type="text" class="form-control"  formControlName="formFile">
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="close">Close</button>
+        <button type="button" class="btn btn-primary" (click)="postEmployee()" *ngIf="ShowAdd">Save</button>
+        <button type="button" class="btn btn-primary" *ngIf="ShowUpdate" (click)="updateEmployee()">Update</button>
+      </div>
+    </div>
+  </div>
+</div>
